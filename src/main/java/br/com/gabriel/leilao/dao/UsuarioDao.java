@@ -1,17 +1,20 @@
 package br.com.gabriel.leilao.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import br.com.gabriel.leilao.model.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import br.com.gabriel.leilao.model.Usuario;
+import javax.persistence.EntityManager;
 
 @Repository
 public class UsuarioDao {
 
-	@PersistenceContext
-	private EntityManager em;
+	private final EntityManager em;
+
+	@Autowired
+	public UsuarioDao(EntityManager em) {
+		this.em = em;
+	}
 
 	public Usuario buscarPorUsername(String username) {
 		return em.createQuery("SELECT u FROM Usuario u WHERE u.nome = :username", Usuario.class)

@@ -1,18 +1,21 @@
 package br.com.gabriel.leilao.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
-
 import br.com.gabriel.leilao.model.Lance;
 import br.com.gabriel.leilao.model.Leilao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
 
 @Repository
 public class LanceDao {
 
-	@PersistenceContext
-	private EntityManager em;
+	private final EntityManager em;
+
+	@Autowired
+	public LanceDao(EntityManager em) {
+		this.em = em;
+	}
 
 	public void salvar(Lance lance) {
 		em.persist(lance);
